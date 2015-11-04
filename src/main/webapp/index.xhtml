@@ -25,8 +25,8 @@
 
 
             <p:layoutUnit position="center">
-                <p:dialog widgetVar="dialogContato" resizable="false" header="Novo Contato" width="400" height="250">
-                    <h:form>
+                <h:form prependId="false">
+                    <p:dialog widgetVar="dialogContato" resizable="false" header="Novo Contato" width="400" height="250">
                         <p:panelGrid columns="2">
                             <h:outputText value="Nome:"/>
                             <p:inputText  id="nomeInputText" value="#{contatoController.contato.nome}"/>
@@ -37,15 +37,11 @@
                             <h:outputText value="Celular:"/>
                             <p:inputText id="celularInputText" value="#{contatoController.contato.celular}"/>
 
-                            <p:commandButton value="Salvar" id="salvarCommandButton" actionListener="#{contatoController.adicionar(actionEvent)}"/>
+                            <p:commandButton update="tableContatos" oncomplete="PF('dialogContato').hide();" value="Salvar" id="salvarCommandButton" actionListener="#{contatoController.adicionar(actionEvent)}"/>
                         </p:panelGrid> 
-                    </h:form>
-                </p:dialog>
+                    </p:dialog>
 
-
-                <br/><br/>
-                <h:form>
-                    <p:dataTable value="#{contatoController.listContatos}" var="contatos">
+                    <p:dataTable id="tableContatos" value="#{contatoController.listContatos}" var="contatos">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
