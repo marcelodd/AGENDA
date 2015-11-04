@@ -6,6 +6,7 @@
 package br.com.jsf.agenda.controller;
 
 import br.com.jsf.agenda.dao.ContatoDao;
+import br.com.jsf.agenda.dao.JPAUtil;
 import br.com.jsf.agenda.model.Contato;
 import java.awt.event.ActionEvent;
 import javax.faces.bean.ManagedBean;
@@ -22,8 +23,13 @@ import javax.faces.model.ListDataModel;
 public class ContatoController {
     private Contato contato;
     private DataModel listContatos;
+    
 
     public Contato getContato() {
+        JPAUtil.init();
+        if(this.contato == null){
+            this.contato = new Contato();
+        }
         return contato;
     }
 
