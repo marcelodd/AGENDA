@@ -17,4 +17,13 @@ public class ContatoDao extends GenericDAO<Contato>{
         super(Contato.class);
     }
     
+    private static ContatoDao instace = null;
+    
+    public static ContatoDao getInstace(){
+        if(instace==null){
+            instace = new ContatoDao();
+        }
+        return instace;
+    }
+    
 }

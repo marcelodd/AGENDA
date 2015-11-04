@@ -18,12 +18,21 @@ import javax.swing.JOptionPane;
 public class Teste {
     public static void main(String[] args) {
         JPAUtil.init();
-        Contato contato = new Contato();
-        contato.setNome(JOptionPane.showInputDialog("Digite seu Nome: "));
+        ContatoDao dao = new ContatoDao();
+        for(int i = 0 ; i < 1000;i++){
+            Contato contato = new Contato();
+            contato.setNome("Contato "+i);
+            contato.setEmail("email@"+i+".com");
+            contato.setTelefone(""+i*10);
+            contato.setCelular(""+i*20);
+            dao.create(contato);
+        }
+        
+       /* contato.setNome(JOptionPane.showInputDialog("Digite seu Nome: "));
         contato.setEmail(JOptionPane.showInputDialog("Digite seu Email: "));
         contato.setTelefone(JOptionPane.showInputDialog("Digite seu Telefone: "));
-        contato.setCelular(JOptionPane.showInputDialog("Digite seu Celular: "));
+        contato.setCelular(JOptionPane.showInputDialog("Digite seu Celular: "));*/
        
-        new ContatoDao().create(contato);
+        
     }
 }

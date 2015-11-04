@@ -22,25 +22,22 @@ import javax.persistence.criteria.Root;
  */
 public abstract class GenericDAO<T extends Serializable> extends JPAUtil{
 
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
     private EntityManager entityManager = null;
-    private JPAUtil jPAUtil;
 
     public GenericDAO(Class<T> entityClass) {
-        init();
         this.entityClass = entityClass;
         this.entityManager = getEntityManager();
     }
 
     public void create(T entity) {
-         EntityManager em = null;
         try {
-            em = getEntityManager();
             startTransaction();
-            em.persist(entity);
+            entityManager.persist(entity);
             endTransaction(true);
-        } finally {
-            close();
+        } catch(Exception e) {
+            endTransaction(false);
+            e.printStackTrace();
         }
     }
 
