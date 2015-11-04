@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -20,14 +21,13 @@ import javax.faces.model.ListDataModel;
  * @author Marcelo
  */
 @ManagedBean
-@SessionScoped
-public class ContatoController {
+@ViewScoped
+public class ContatoController extends AppController{
     private Contato contato;
     private ListDataModel<Contato> listContatos;
     
 
     public Contato getContato() {
-        JPAUtil.init();
         if(this.contato == null){
             this.contato = new Contato();
         }
@@ -39,7 +39,7 @@ public class ContatoController {
     }
 
     public ListDataModel<Contato> getListContatos() {
-        listContatos = new ListDataModel<Contato>(ContatoDao.getInstace().findAll());
+            listContatos = new ListDataModel<Contato>(ContatoDao.getInstace().findAll());
         return listContatos;
     }
     
@@ -52,9 +52,8 @@ public class ContatoController {
     }
     
     public void adicionar(ActionEvent actionEvent){
-        ContatoDao dao = new ContatoDao();
-        dao.create(contato);
-       // ContatoDao.getInstace().create(contato);
+        ContatoDao.getInstace().create(contato);
+        contato = null;
     }
     
    public void alterar(ActionEvent actionEvent){

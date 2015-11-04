@@ -17,15 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class Teste {
     public static void main(String[] args) {
-        JPAUtil.init();
         ContatoDao dao = new ContatoDao();
-        for(int i = 0 ; i < 1000;i++){
+        for(int i = 0 ; i < 10;i++){
             Contato contato = new Contato();
             contato.setNome("Contato "+i);
             contato.setEmail("email@"+i+".com");
             contato.setTelefone(""+i*10);
             contato.setCelular(""+i*20);
-            dao.create(contato);
+            ContatoDao.getInstace().create(contato);
         }
         
        /* contato.setNome(JOptionPane.showInputDialog("Digite seu Nome: "));

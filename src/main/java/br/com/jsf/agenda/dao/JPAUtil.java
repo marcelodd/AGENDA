@@ -1,4 +1,5 @@
 package br.com.jsf.agenda.dao;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,16 +17,16 @@ import javax.persistence.Query;
  */
 public class JPAUtil {
 
-    private static EntityManagerFactory emf;
+    private static final EntityManagerFactory emf;
     private static EntityManager managerEM;
     private static EntityTransaction managerET;
 
-    public static void init() {
+    static {
         emf = Persistence.createEntityManagerFactory("AGENDA_PU");
     }
 
     public static EntityManager getEntityManager() {
-        if (managerEM == null || (!managerEM.isOpen())) {
+        if (managerEM == null) {
             managerEM = emf.createEntityManager();
         }
         return managerEM;

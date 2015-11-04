@@ -19,6 +19,7 @@ import javax.persistence.criteria.Root;
 /**
  *
  * @author Marcelo
+ * @param <T>
  */
 public abstract class GenericDAO<T extends Serializable> extends JPAUtil{
 
@@ -38,6 +39,7 @@ public abstract class GenericDAO<T extends Serializable> extends JPAUtil{
         } catch(Exception e) {
             endTransaction(false);
             e.printStackTrace();
+            System.err.println("Erro ao criar entidade: "+e.getMessage());
         }
     }
 
