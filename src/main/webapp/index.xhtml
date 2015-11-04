@@ -14,30 +14,37 @@
             </p:layoutUnit>
 
 
-            <p:layoutUnit position="west" size="200" closable="true" rendered="true" resizable="true" header="Menu">
+            <p:layoutUnit position="west" size="200" collapsible="true" closable="true" rendered="true" resizable="true" header="Menu">
                 <h:form>
-                    <p:commandLink value="Novo Contato"/>
+                    <p:commandLink value="Novo Contato" 
+                                   actionListener="#{contatoController.prepararAdicionarContato(actionEvent)}"
+                                   onclick="PF('dialogContato').show();"/>
                 </h:form>
             </p:layoutUnit>
 
 
 
             <p:layoutUnit position="center">
+                <p:dialog widgetVar="dialogContato" resizable="false" header="Novo Contato" width="400" height="250">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Nome:"/>
+                            <p:inputText  id="nomeInputText" value="#{contatoController.contato.nome}"/>
+                            <h:outputText value="E-mail:"/>
+                            <p:inputText id="emailInputText" value="#{contatoController.contato.email}"/>
+                            <h:outputText value="Telefone:"/>
+                            <p:inputText id="telefoneInputText" value="#{contatoController.contato.telefone}"/>
+                            <h:outputText value="Celular:"/>
+                            <p:inputText id="celularInputText" value="#{contatoController.contato.celular}"/>
+
+                            <p:commandButton value="Salvar" id="salvarCommandButton" actionListener="#{contatoController.adicionar(actionEvent)}"/>
+                        </p:panelGrid> 
+                    </h:form>
+                </p:dialog>
+
+
+                <br/><br/>
                 <h:form>
-                    <p:panelGrid columns="2">
-                        <h:outputText value="Nome:"/>
-                        <p:inputText  id="nomeInputText" value="#{contatoController.contato.nome}"/>
-                        <h:outputText value="E-mail:"/>
-                        <p:inputText id="emailInputText" value="#{contatoController.contato.email}"/>
-                        <h:outputText value="Telefone:"/>
-                        <p:inputText id="telefoneInputText" value="#{contatoController.contato.telefone}"/>
-                        <h:outputText value="Celular:"/>
-                        <p:inputText id="celularInputText" value="#{contatoController.contato.celular}"/>
-
-                        <p:commandButton value="Salvar" id="salvarCommandButton" actionListener="#{contatoController.adicionar(actionEvent)}"/>
-                    </p:panelGrid>
-
-                    <br/>
                     <p:dataTable value="#{contatoController.listContatos}" var="contatos">
                         <p:column>
                             <f:facet name="header">
