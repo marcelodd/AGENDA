@@ -9,6 +9,7 @@ import br.com.jsf.agenda.dao.ContatoDao;
 import br.com.jsf.agenda.dao.JPAUtil;
 import br.com.jsf.agenda.model.Contato;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
@@ -22,7 +23,7 @@ import javax.faces.model.ListDataModel;
 @SessionScoped
 public class ContatoController {
     private Contato contato;
-    private DataModel listContatos;
+    private ListDataModel<Contato> listContatos;
     
 
     public Contato getContato() {
@@ -37,8 +38,8 @@ public class ContatoController {
         this.contato = contato;
     }
 
-    public DataModel getListContatos() {
-        listContatos = new ListDataModel(ContatoDao.getInstace().findAll());
+    public ListDataModel<Contato> getListContatos() {
+        listContatos = new ListDataModel<Contato>(ContatoDao.getInstace().findAll());
         return listContatos;
     }
     
@@ -51,7 +52,9 @@ public class ContatoController {
     }
     
     public void adicionar(ActionEvent actionEvent){
-        ContatoDao.getInstace().create(contato);
+        ContatoDao dao = new ContatoDao();
+        dao.create(contato);
+       // ContatoDao.getInstace().create(contato);
     }
     
    public void alterar(ActionEvent actionEvent){
@@ -60,6 +63,7 @@ public class ContatoController {
     
    public String excluir(){
        Contato contato = (Contato)(listContatos.getRowData());
+       
        ContatoDao.getInstace().remove(contato);
        return "index";
    }
